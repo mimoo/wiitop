@@ -7,13 +7,13 @@ Wiitop was a tournament script created around 2005 I think. It used to be transl
 
 But anyway, I remade the project to learn CodeIgniter and Sass and Zurb Foundation and... I made a mess. And I stopped being interested in the project and I moved on. And now wiitop.net is down and people are asking me for the script so this is a start... I pushed the entire source code.
 
-The code is old, maybe unsecure, and also I can't find the .sass files that were a huge simplification of the trees...
+The code is old, maybe unsecure, and also I can't find the .sass files that were a huge simplification of the brackets...
 
 ## How to use it?
 
-Copy the content in the src folder
-create the database from wiitop.sql
-configure application/config/database.php with your database password
+* Copy the content in the src folder
+* Create the database from wiitop.sql
+* Configure application/config/database.php with your database password
 
 ## Can I use that?
 
