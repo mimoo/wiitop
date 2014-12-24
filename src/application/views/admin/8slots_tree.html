@@ -1,0 +1,135 @@
+{% extends 'admin/edit_tree.html' %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/stylesheets/8slots-admin.css">
+{% endblock %}
+
+{% block tree %}
+{# MAPS #}
+{% if game.maps == 1 %}
+    {% set mapselect %}
+        {% for key, map in maps_list %}
+            <option value="{{ key }}">{{ map.name }}</option>
+        {% endfor %}
+    {% endset %}
+    <div id="maps">
+{% for i in range(0,2) %}
+    <div class="map">
+        <select name="map{{i}}">
+            <option selected value="{{ attribute(maps, i) }}">{{ attribute(maps_list, attribute(maps, i)).name }}</option>
+            {{ mapselect }}
+        </select>
+    </div>
+{% endfor %}
+    </div>
+{% endif %}
+{# BRACKET #}
+<div id="bracket">
+    {# liste des teams pour le select #}
+    {% set liste_teams %}
+        {% for key, team in teams %}
+            <option value="{{ key }}">{{ team.name }}</option>
+        {% endfor %}
+    {% endset %}
+    {# on l'utilise maintenant #}
+    <div class="teams column">
+        {% for i in range(1, 8) %}
+            {% if i is odd %}<div class="duel">{% endif %}
+            <div class="team row-fluid">
+                <select name="team{{ i }}" class="span10">
+                    <option selected value="{{ attribute(tree, i).id }}">{{ attribute(teams, attribute(tree, i).id).name }}</option>
+                    {{ liste_teams }}
+                </select>
+                {% if game.scores == 1 %}
+                <input type="text" name ="score{{ i }}" class="span2" placeholder="0" value="{{ attribute(tree, i).score}}">
+                {% endif %}
+            </div>
+            {% if i is even %}</div>{% endif %}
+        {% endfor %}
+    </div>
+    
+    <div class="separation column">
+        <div class="branches column">
+            <div class="branche"></div>
+            <div class="branche"></div>
+            <div class="branche"></div>
+            <div class="branche"></div>
+        </div>
+        <div class="carres column">
+            <div class="carre"></div>
+            <div class="carre"></div>
+        </div>
+    </div>
+
+    <div class="teams column">
+        {% set foo = 1 %}
+        {% for i in range(9, 12) %}
+            {% if i is odd %}<div class="duel">{% endif %}
+            <div class="team row-fluid">
+                <select name="team{{ i }}" class="span10">
+                    <option selected value="{{ attribute(tree, i).id }}">{{ attribute(teams, attribute(tree, i).id).name }}</option>
+                    <option value="{{ attribute(tree, foo).id }}">{{ attribute(teams, attribute(tree, foo).id).name }}</option>
+                    {% set foo = foo + 1 %}
+                    <option value="{{ attribute(tree, foo).id }}">{{ attribute(teams, attribute(tree, foo).id).name }}</option>
+                    {% set foo = foo + 1 %}
+                </select>
+                {% if game.scores == 1 %}
+                <input type="text" name ="score{{ i }}" class="span2" placeholder="0" value="{{ attribute(tree, i).score}}">
+                {% endif %}
+            </div>
+            {% if i is even %}</div>{% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="separation column">
+        <div class="branches column">
+            <div class="branche"></div>
+            <div class="branche"></div>
+        </div>
+        <div class="carres column">
+            <div class="carre"></div>
+        </div>
+    </div>
+
+    <div class="teams column">
+        {% set foo = 9 %}
+        {% for i in range(13, 14) %}
+            {% if i is odd %}<div class="duel">{% endif %}
+            <div class="team row-fluid">
+                <select name="team{{ i }}" class="span10">
+                    <option selected value="{{ attribute(tree, i).id }}">{{ attribute(teams, attribute(tree, i).id).name }}</option>
+                    <option value="{{ attribute(tree, foo).id }}">{{ attribute(teams, attribute(tree, foo).id).name }}</option>
+                    {% set foo = foo + 1 %}
+                    <option value="{{ attribute(tree, foo).id }}">{{ attribute(teams, attribute(tree, foo).id).name }}</option>
+                    {% set foo = foo + 1 %}
+                </select>
+                {% if game.scores == 1 %}
+                <input type="text" name ="score{{ i }}" class="span2" placeholder="0" value="{{ attribute(tree, i).score}}">
+                {% endif %}
+            </div>
+            {% if i is even %}</div>{% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="separation column">
+        <div class="branches column">
+            <div class="branche"></div>
+        </div>
+        <div class="carres column">
+            <div class="carre"></div>
+        </div>
+    </div>
+
+    <div class="teams column">
+        <div class="winner">
+            <div class="team row-fluid">
+                <select name="team15" class="span10">
+                    <option selected value="{{ attribute(tree, 15).id }}">{{ attribute(teams, attribute(tree, 15).id).name }}</option>
+                    <option value="{{ attribute(tree, 13).id }}">{{ attribute(teams, attribute(tree, 13).id).name }}</option>
+                    <option value="{{ attribute(tree, 14).id }}">{{ attribute(teams, attribute(tree, 14).id).name }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

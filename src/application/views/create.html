@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Set your page in a few seconds!</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Bootstrap -->
+	<link href="/stylesheets/bootstrap.css" rel="stylesheet" media="screen">
+	<!-- font -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+	<!-- custom -->
+	<link rel="stylesheet" type="text/css" href="/stylesheets/accueil.css">
+	<!-- font -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<div id="create" class="container">
+		<h1>Set your page in seconds!</h1>
+
+		<form method="post" class="form-horizontal">
+			<h3>Information about your page</h3>
+				<div class="control-group{% if name.1 is not empty %} error{% endif %}">
+					<label for="name" class="control-label">Name</label>
+					<div class="controls">
+						<input type="text" name="name" id="name" maxlength="20" placeholder="name" class="input-block-level" value="{{ name.0|raw }}">
+						{{ name.1|raw }}
+					</div>
+				</div>
+
+				<div class="control-group{% if language.1 is not empty %} error{% endif %}">
+					<label for="language" class="control-label">Language</label>
+					<div class="controls">
+						<select name="language" id="language" class="input-block-level" disabled>
+							{% if language.0 is not empty %}<option selected>{{ language.0|raw }}</option>{% endif %}
+							<option value="en">English</option>
+							<option value="fr">French</option>
+							<option value="de">German</option>
+							<option value="es">Spanish</option>
+							<option value="fi">Finnish</option>
+							<option value="se">Swedish</option>
+							<option value="it">Italian</option>
+						</select>
+						{{ language.1|raw }}
+					</div>
+				</div>
+
+				<div class="control-group{% if namespace.1 is not empty %} error{% endif %}">
+					<label for="namespace" class="control-label">http://www.wiitop.net/tn/</label>
+					<div class="controls">
+						<input type="text" name="namespace" id="namespace" maxlength="20" placeholder="namespace" class="input-block-level" value="{{ namespace.0|raw }}">
+						{{ namespace.1|raw }}
+					</div>
+				</div>
+					<span class="help-block">
+						<p>This will be the URL of your page. Chose it carefuly as you will not be able to change it afterward.</p>
+					</span>
+				<h3>Your login information</h3>
+				<div class="control-group{% if username.1 is not empty %} error{% endif %}">
+					<label for="username" class="control-label">Username</label>
+					<div class="controls">
+						<input type="text" name="username" id="username" maxlength="30" class="input-block-level" placeholder="username" value="{{ username.0|raw }}">
+						{{ username.1|raw }}
+					</div>
+				</div>
+				<div class="control-group{% if password.1 is not empty %} error{% endif %}">
+					<label for="password" class="control-label">Password</label>
+					<div class="controls">
+						<input type="password" name="password" id="password" maxlength="20" class="input-block-level" placeholder="password">
+						{{ password.1|raw }}
+					</div>
+				</div>
+				<div class="control-group{% if password_conf.1 is not empty %} error{% endif %}">
+					<label for="password_conf" class="control-label">Confirm your password</label>
+					<div class="controls">
+						<input type="password" name="password_conf" id="password_conf" maxlength="30" class="input-block-level" placeholder="type your password one more time">
+						{{ password_conf.1|raw }}
+					</div>
+				</div>
+				<div class="control-group{% if email.1 is not empty %} error{% endif %}">
+					<label for="email" class="control-label">Email</label>
+					<div class="controls">
+						<input type="text" name="email" id="email" maxlength="30" class="input-block-level" placeholder="email" value="{{ email.0|raw }}">
+						{{ email.1|raw }}
+						
+					</div>
+				</div>
+				<span class="help-block">
+					<p>We need your email in case you forget your password. That's all!</p>
+				</span>
+			
+			<input type="submit" value="I'm Ready!" class="btn btn-success btn-large btn-block">
+		</form>
+	</div>
+	<!-- javascript -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>
+	<!-- custom? -->
+
+	<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-190811-14']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

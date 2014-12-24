@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Administration of {{ page.name }}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Bootstrap -->
+	<link href="/stylesheets/bootstrap.css" rel="stylesheet" media="screen">
+	<!-- font -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+	<!-- custom scrolling -->
+	<link href="/stylesheets/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+	<!-- custom -->
+	<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css">
+	{% block css %}{% endblock %}
+</head>
+<body>
+	<nav class="row-fluid">
+		<div class="span6"><img src="/images/{% if page.live == 0 %}not{% endif %}live.png"> <a href="/tn/{{ page.namespace }}/" target="_blank" class="out hastip" title="{% if page.live == 0 %}no tournament occuring{% elseif page.live == 1 %}registering teams{% else %}tournament occuring{% endif %}">{{ page.name }}</a></div>
+		<div class="span6"><img src="/images/logout.png"> <a href="/admin/{{ page.namespace }}/logout/" class="logout">LOGOUT {<strong>{{ username }}</strong>}?</a></div>
+	</nav>
+	<div id="wrapper" class="container-fluid">
+		<aside>
+			<ul>
+				<li><a href="/admin/{{ page.namespace }}/" {% if page.page == "index" %}class="hover"{% endif %}>Home</a></li>
+
+				{% if page.live == 0 %}
+
+					<li><a href="/admin/{{ page.namespace }}/set_tn/" {% if page.page == "set_tn" %}class="hover"{% endif %}><strong>New Tournament</strong></a></li>
+
+				{% else %}
+
+					<li><a href="/admin/{{ page.namespace }}/register_teams/" {% if page.page == "register_teams" %}class="hover"{% endif %}><strong>Registering teams</strong></a></li>
+
+					<li><a href="/admin/{{ page.namespace }}/edit_tree/" {% if page.page == "edit_tree" %}class="hover"{% endif %}><strong>Update Bracket</strong></a></li>
+
+					<li><a href="/admin/{{ page.namespace }}/edit_tn/" {% if page.page == "edit_tn" %}class="hover"{% endif %}><strong>Update Tournament Settings</strong></a></li>
+
+					<li><a href="#end_tn_modal" data-toggle="modal" {% if page.page == "end_tn" %}class="hover"{% endif %}><strong>End Tournament</strong></a></li>
+
+					<li><a href="#confirmation_cancel" data-toggle="modal"><strong>Cancel Tournament</strong></a></li>
+				{% endif %}
+				
+				{#
+				<li><a href="/admin/{{ page.namespace }}/manage_past_tn/" {% if page.page == "manage_past_tn" %}class="hover"{% endif %}>Manage Past Tournaments</a></li>
+
+				<li><a href="/admin/{{ page.namespace }}/manage_logins/" {% if page.page == "manage_logins" %}class="hover"{% endif %}>Manage Logins</a></li>
+
+				<li><a href="/admin/{{ page.namespace }}/manage_news/" {% if page.page == "manage_news" %}class="hover"{% endif %}>Manage News</a></li>
+
+				<li><a href="/admin/{{ page.namespace }}/edit_rules/" {% if page.page == "edit_rules" %}class="hover"{% endif %}>Edit Rules</a></li>
+
+				<li><a href="/admin/{{ page.namespace }}/edit_faq/" {% if page.page == "edit_faq" %}class="hover"{% endif %}>Edit FAQ</a></li>
+
+				<li><a href="/admin/{{ page.namespace }}/edit_contact/" {% if page.page == "edit_contact" %}class="hover"{% endif %}>Edit Contact</a></li>
+
+				<li><a href="/admin/{{ page.namespace }}/manage_theme/" {% if page.page == "manage_theme" %}class="hover"{% endif %}>Manage Theme</a></li>
+
+				#}
+				<li><a href="/admin/{{ page.namespace }}/edit_page/" {% if page.page == "edit_page" %}class="hover"{% endif %}>Edit page settings</a></li>
+
+				<li><a href="/admin/{{ page.namespace }}/manage_games/" {% if page.page == "manage_games" %}class="hover"{% endif %}>Manage Games</a></li>
+			</ul>
+		</aside>
+	{% block content %}{% endblock %}
+	</div>
+
+	{# CANCEL MODAL #}
+	<div id="confirmation_cancel" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Are you sure?</h3>
+		</div>
+		<div class="modal-body">
+			<p>Are you sure you want to cancel this tournament?</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<a href="/admin/{{ page.namespace }}/cancel_tn/" class="btn btn-primary">Cancel Tournament</a>
+		</div>
+	</div>
+	{# END_TN MODAL #}
+	<div id="end_tn_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Are you sure?</h3>
+		</div>
+		<div class="modal-body">
+			<p>Are you sure you want to end this tournament?</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<a href="/admin/{{ page.namespace }}/end_tn/" class="btn btn-primary">End Tournament</a>
+		</div>
+	</div>
+	
+	<!-- javascript -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="/javascripts/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>
+	<!-- custom? -->
+	<script src="/javascripts/admin.js"></script>
+</body>
+</html>

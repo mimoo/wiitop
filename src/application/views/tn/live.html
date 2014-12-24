@@ -1,0 +1,27 @@
+{% extends "tn/template.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/stylesheets/16slots.css">
+{% endblock %}
+
+{% block content %}
+    {# BRACKET #}
+	{% block tree %}{% endblock %}
+	{# TEAMS #}
+	<table id="teams">
+    	{% for team in teams %}
+        <tr>
+            <td class="teams_case teams_name">
+                {% if team.picture != "none" %}<img src="/images/icones/{{ team.picture }}.gif" />{% endif %}{{ team.name }}
+            </td>
+            {% for player in team.players %}
+                <td class="teams_case team_player">{{ player }}</td>
+            {% endfor %}
+
+            {% if team.server is not empty %}
+             <td class="teams_case team_server"><span class="team_server server_{{ team.server|lower }}">{{ team.server }}</span></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
