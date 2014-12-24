@@ -1,0 +1,58 @@
+{% extends 'admin/admin.html' %}
+
+{% block content %}
+<div id="edit_game" class="main">
+	<div id="status_bar">
+		<h1>Edit {{ game.name }}</h1>
+	</div>
+	<form method="post" action="/admin/{{ page.namespace }}/edit_game_do/">
+		<input type="hidden" name="edit" value="{{ game.id }}">
+		<input type="text" name="name" id="name" value="{{ game.name }}" placeholder="name">
+        <label for="players">Number of Players per team</label>
+        <input type="text" name="players" id="players" placeholder="5" value="{{ game.players }}">
+        <label for="maps">Does this game have maps?</label>
+        <input type="radio" name="maps" value="1" {% if game.maps == 1 %}checked{% endif %}> yes
+        <input type="radio" name="maps" value="0" {% if game.maps == 0 %}checked{% endif %}> no
+        <label for="servers">Does a team needs its own server to play?</label>
+
+        <input type="radio" name="servers" value="1" {% if game.servers == 1 %}checked{% endif %}> yes
+        <input type="radio" name="servers" value="0" {% if game.servers == 0 %}checked{% endif %}> no
+
+        <label for="scores">Will you display any kind of scores?</label>
+
+        <input type="radio" name="scores" value="1" {% if game.scores == 1 %}checked{% endif %}> yes
+        <input type="radio" name="scores" value="0" {% if game.scores == 0 %}checked{% endif %}> no
+        
+        {# MAPS #}
+        {% if game.maps == 1 %}
+
+        <input type="hidden" id="number_maps" name="number_maps" value="{{ game.number_maps }}">
+		
+		<h2>Maps</h2>
+
+		{% for map in maps %}
+		    <div class="map">
+		    	<input type="text" name="map_name_{{ loop.index }}" value="{{ map.name }}"> <input type="text" name="map_url_{{ loop.index }}" value="{{ map.url }}"> <a href="#" id="delete_{{ loop.index }}" class="delete_map">[x]</a>
+		    </div>
+		{% endfor %}
+
+        <div class="well">If you want to add maps click on this button as much as you want. We recommand <a href="http://www.imgur.com">Imgur.com</a> to upload images.</div>
+
+        <input type="button" class="btn" value="add a new map" id="add_map">
+
+        {% endif %}
+        {# FIN MAP #}
+
+        <div style="text-align:center;"><input type="submit" class="btn btn-large" value="Update edits"></div>
+        {# WARNING IF OFFICIAL #}
+        {% if game.official == 1 %}
+		<div class="well">This game is from the official list, if you modify it you will create a new copy of it.</div>
+        {% endif %}
+	</form>
+	<a href="/admin/{{ page.namespace }}/remove_game/{{ game.id }}/">Remove this game from your list</a>
+	{# WARNING IF NOT OFFICIAL #}
+	{% if game.official == 0 %}
+	<div class="well">Careful! This game settings are not in the official list so you won't be able to get it back.</div>
+	{% endif %}
+</div>
+{% endblock %}

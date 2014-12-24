@@ -1,0 +1,58 @@
+{% extends 'admin/admin.html' %}
+
+{% block content %}
+<div id="manage_games" class="main">
+	<div id="status_bar">
+		<h1>Managing your game list</h1>
+	</div>
+
+    <form method="post" action="/admin/{{ page.namespace }}/edit_game/" class="submit_onchange">
+		<h2>Edit one of your games</h2>
+
+        <select name="edit" id="edit">
+            <option>Edit a game</option>
+            {% for game in games %}
+                <option value="{{ game.id }}">{{ game.name }}{% if game.official == 1 %} (official){% endif %}</option>
+            {% endfor %}
+        </select>
+
+        <div class="well">If you edit a game from the official selection, it will be copied into your list so you can always get the original settings in the official list. If you want to remove a game from your list, it's in the edit page.</div>
+        
+    </form>
+
+    <form method="post" action="/admin/{{ page.namespace }}/add_official_game/" class="submit_onchange">
+        <h2>Add a game from the official list</h2>
+        <select name="add" id="add">
+            <option>Add a game</option>
+            {% for game in official_games %}
+                <option value="{{ game.id }}">{{ game.name }}</option>
+            {% endfor %}
+        </select>
+        <div class="well">Browse our list of games, they are user-made. If we find that one of your custom game should be worth the official list we will ask you first if you want to make it available for others.</div>
+    </form>
+
+    <form method="post" action="/admin/{{ page.namespace }}/add_game/">
+        <h2>Add a game with your own settings</h2>
+        <div class="well">You can add pretty much anything, we will walk you through it so don't worry! You can always modify/remove it later</div>
+        <input type="text" name="name" id="name" placeholder="name">
+        <label for="players">Number of Players per team</label>
+        <input type="text" name="players" id="players" placeholder="number of players">
+        <label for="maps">Does this game have maps?</label>
+        <input type="radio" name="maps" value="1" checked> yes
+        <input type="radio" name="maps" value="0"> no
+        <label for="servers">Does a team needs its own server to play?</label>
+
+        <input type="radio" name="servers" value="1" checked> yes
+        <input type="radio" name="servers" value="0"> no
+
+        <label for="scores">Will you display any kind of scores?</label>
+
+        <input type="radio" name="scores" value="1" checked> yes
+        <input type="radio" name="scores" value="0"> no
+
+        <div style="text-align:center;"><input type="submit" value="Add game" class="btn btn-large"></div>
+    <form>
+
+
+</div>
+{% endblock %}

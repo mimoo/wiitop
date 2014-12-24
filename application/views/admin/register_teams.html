@@ -1,0 +1,86 @@
+{% extends 'admin/admin.html' %}
+
+{% block content %}
+<div id="register_teams" class="main">
+
+    <div id="status_bar">
+    	<div id="bar">
+    		<div id="bar_set_tn"></div>
+    		<div id="bar_register_teams"></div>
+    		<div id="bar_edit_tree"></div>
+    		<div id="bar_end_tn"></div>
+    	</div>
+    	<div id="triangle"></div>
+    	<h1>Registering Teams/Players</h1>
+    </div>
+
+    {% if teams|length < tournament.slots %}
+    <form method="post" class="form-inline">
+    	<h2>Register a Team ({{ teams|length }}/{{tournament.slots }})</h2>
+    	<fieldset>
+    		<select name="picture" id="picture" class="input-medium">
+    			<option value="none" selected>No picture</option>
+    			{% for id, picture in pictures %}
+                    {% if picture != 'index.html' %}<option>{{picture}}</option>{% endif %}
+                {% endfor %}
+    		</select>
+            {% if game_info.players >1 %}
+    		<input type="text" name="name" id="name" placeholder="team_name">
+            {% else %}
+            <input type="text" name="name" id="name" placeholder="player">
+            {% endif %}
+
+    		<br><br>
+
+            {% if game_info.players > 1 %}
+                {% for i in range(1, game_info.players) %}
+                    <input type="text" name="player_{{i}}" placeholder="player_{{i}}" class="input-small">
+                {% endfor %}
+            {% endif %}
+            <br><br>
+            {% if game_info.servers == 1 %}
+            <label for="server">Server</label>
+            <select name="server" id="server" class="input-small">
+                <option>ON</option>
+                <option selected>OFF</option>
+            </select>
+            {% endif %}
+
+    		<br><br>
+    		<input type="submit" value="Register Team" class="btn btn-large">
+    	</fieldset>
+    </form>
+    <form>
+    	<h2>Quick Add</h2>
+    	<fieldset>
+    		<div class="well">You can also add a team quickier through this quick add form. Syntax must be : "picture:team player1 player2 player3 player4 player5 ON" you can ommit the "picture:" (and of course you don't need the "")</div>
+    	    <div class="input-append">
+    		    <input class="input-xxlarge" id="appendedInputButton" type="text" name="quick_add" id="quick_add" placeholder="fr:team player1 player2 player3 player4 player5 OFF" disabled>
+    		    <button class="btn" type="button" disabled>Quick Add!</button>
+    	    </div>
+    	</fieldset>
+    </form>
+    {% endif %}
+
+    <h2>Manage Registered Teams</h2>
+    <div class="well">Click on what you want to quick edit (not available now)</div>
+    <!-- TEAMS -->
+    <table id="teams">
+    	{% for id, team in teams %}
+        <tr>
+            <td class="admin_table"><a href="/admin/{{ page.namespace }}/delete_team/{{ id }}"><img src="/images/delete.gif"></a></td>
+            <td class="teams_case teams_name">
+                {% if team.picture != "none" %}<img src="/images/icones/{{ team.picture }}.gif" />{% endif %}{{ team.name }}
+            </td>
+            {% for player in team.players %}
+                <td class="teams_case team_player">{{ player }}</td>
+            {% endfor %}
+
+            {% if team.server is not empty %}
+             <td class="teams_case team_server"><span class="team_server server_{{ team.server }}">{{ team.server }}</span></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
