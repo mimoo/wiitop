@@ -3,11 +3,11 @@ Wiitop
 
 ![landing1](src/images/landing1.png)
 
-![landing2](src/images/landing1.png)
+![landing2](src/images/landing2.png)
 
-![landing3](src/images/landing1.png)
+![landing3](src/images/landing3.png)
 
-![landing4](src/images/landing1.png)
+![landing4](src/images/landing4.png)
 
 ## Preface
 
